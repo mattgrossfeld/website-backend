@@ -11,19 +11,17 @@ const getThreadById = (req, res) => {
             res.status(error.status).json({msg: error.message, error: error});
         }
 
-        res.status(200).json(thread);
-    };
+};
   
 const insertThread = (req, res) => {
-    let params = req.params;
+    let params = req.body;
     try {
             var thread = threadsRepository.insertThread(params);
             res.status(200).json(thread);
         } catch (error) {
             res.status(error.status).json({msg: error.message, error: error});
         }
-        res.status(200).json(thread);
-    };
+};
   
 const updateThreadById = (req, res) => {
         res.json({message: 'Update Thread By Id'});
@@ -35,10 +33,6 @@ const deleteThreadById = (req, res) => {
 
 const getThreads = (req, res) => {
         res.json({message: 'Get Threads'});
-    };
-
-const insertThreads = (req, res) => {
-        res.json({message: 'Insert threads'});
     };
 
 const updateThreads = (req, res) => {
@@ -57,4 +51,4 @@ const getThreadLatestPost = (req, res) => {
         res.json({message: 'Get the latest post for thread'});
     };
 
-module.exports = {getThreadById, insertThread, updateThreadById, deleteThreadById, getThreads, insertThreads, updateThreads, deleteThreads, getThreadPosts, getThreadLatestPost};
+module.exports = {getThreadById, insertThread, updateThreadById, deleteThreadById, getThreads, updateThreads, deleteThreads, getThreadPosts, getThreadLatestPost};

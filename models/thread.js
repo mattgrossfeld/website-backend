@@ -30,11 +30,11 @@ class Thread {
         return this._modifiedTm;
     }
 
-    setCreatedBy(createdBy) {
-        this._createdBy = createdBy;
+    setModifiedBy(modifiedBy) {
+        this._modifiedBy = modifiedBy;
     };
-    getCreatedBy() {
-        return this._createdBy;
+    getModifiedBy() {
+        return this._modifiedBy;
     }
 
     setCreatedTm(createdTm) {

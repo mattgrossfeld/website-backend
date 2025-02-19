@@ -1,8 +1,11 @@
-const express = require('express')
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const port = 3000;
+
+
 const threadsController = require('./controllers/threadsController');
-const bodyParser = require('body-parser')
-const app = express()
-const port = 3000
+const databasePool = require('./databasePool');
 
 app.use(bodyParser.json());
 app.use(

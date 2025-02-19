@@ -1,4 +1,6 @@
 const Pool = require('pg').Pool;
+const fs = require('fs');
+
 var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader('./local-properties.properties');
 
@@ -8,7 +10,9 @@ const pool = new Pool({
   database: properties.get('db.database'),
   user: properties.get('db.user'),
   password: properties.get('db.password'),
-  ssl: true
+  ssl: {
+    ca: fs.readFileSync('C:/Users/Matthew Grossfeld/Downloads/global-bundle.pem').toString()
+  }
 });
 
 module.exports = pool;
