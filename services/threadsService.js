@@ -1,44 +1,60 @@
-module.exports = {
-    getThreadById: (req, res) => {
+const threadsRepository = require('../repositories/threadsRepository');
+
+const getThreadById = (req, res) => {
         let threadId = req.params.threadId;
         let msg = "Get Thread By Id ${threadId}.";
-        
-      res.json({message: msg});
-    },
+
+        try {
+            var thread = threadsRepository.getThreadById(threadId);
+            res.status(200).json(thread);
+        } catch (error) {
+            res.status(error.status).json({msg: error.message, error: error});
+        }
+
+        res.status(200).json(thread);
+    };
   
-    insertThreadById: (req, res) => {
-        res.json({message: 'Insert Thread By Id'});
-    },
+const insertThread = (req, res) => {
+    let params = req.params;
+    try {
+            var thread = threadsRepository.insertThread(params);
+            res.status(200).json(thread);
+        } catch (error) {
+            res.status(error.status).json({msg: error.message, error: error});
+        }
+        res.status(200).json(thread);
+    };
   
-    updateThreadById: (req, res) => {
+const updateThreadById = (req, res) => {
         res.json({message: 'Update Thread By Id'});
-    },
+    };
   
-    deleteThreadById: (req, res) => {
+const deleteThreadById = (req, res) => {
         res.json({message: 'Delete Thread By Id'});
-    },
+    };
 
-    getThreads: (req, res) => {
+const getThreads = (req, res) => {
         res.json({message: 'Get Threads'});
-    },
+    };
 
-    insertThreads: (req, res) => {
+const insertThreads = (req, res) => {
         res.json({message: 'Insert threads'});
-    },
+    };
 
-    updateThreads: (req, res) => {
+const updateThreads = (req, res) => {
         res.json({message: 'Update threads'});
-    },
+    };
 
-    deleteThreads: (req, res) => {
+const deleteThreads = (req, res) => {
         res.json({message: 'Delete threads'});
-    },
+    };
 
-    getThreadPosts: (req, res) => {
+const getThreadPosts = (req, res) => {
         res.json({message: 'Get posts for thread'});
-    },
+    };
 
-    getThreadLatestPost: (req, res) => {
+const getThreadLatestPost = (req, res) => {
         res.json({message: 'Get the latest post for thread'});
-    },
-};
+    };
+
+module.exports = {getThreadById, insertThread, updateThreadById, deleteThreadById, getThreads, insertThreads, updateThreads, deleteThreads, getThreadPosts, getThreadLatestPost};

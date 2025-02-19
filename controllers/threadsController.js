@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Single thread
 router.get('/:threadId', threadsService.getThreadById);
-router.post('/:threadId', threadsService.insertThreadById);
+router.post('/:threadId', threadsService.insertThread);
 router.put('/:threadId', threadsService.updateThreadById);
 router.delete('/:threadId', threadsService.deleteThreadById);
 

@@ -7,5 +7,8 @@ const pool = new Pool({
   port: properties.get('db.port'),
   database: properties.get('db.database'),
   user: properties.get('db.user'),
-  password: properties.get('db.password')
+  password: properties.get('db.password'),
+  ssl: true
 });
+
+module.exports = pool;
