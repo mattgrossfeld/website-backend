@@ -44,11 +44,11 @@ class User {
         return this._email;
     };
 
-    setRole(role) {
-        this._role = role;
+    setRoleId(roleId) {
+        this._roleId = roleId;
     };
-    getRole() {
-        return this._role;
+    getRoleId() {
+        return this._roleId;
     };
 
     setModifiedTm(modifiedTm) {

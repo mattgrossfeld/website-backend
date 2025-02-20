@@ -11,15 +11,17 @@ async function getUserById(userId) {
     return user;
 };
 
-const insertUser = (params) => {
+async function insertUser(params) {
     var user = new User();
-    pool.query(constants.INSERT_USER, [params.title, params.body, params.created_tm, params.modified_tm, params.created_by, params.modified_by], (error, results) => {
-        if (error) {
-            throw error;
-        }
-        user.setId(results.rows[0].id);
-        user.setDisplayName(results.rows[0].display_name);
-    });
+    console.log(params);
+    var results = await pool.query(constants.INSERT_USER, [params.firstName, params.lastName, params.userName, params.displayName, params.email, params.roleId, params.createdBy, params.modifiedBy]);
+    user.setId(results.rows[0].id);
+    user.setFirstName(results.rows[0].first_name);
+    user.setLastName(results.rows[0].last_name);
+    user.setUserName(results.rows[0].user_name);
+    user.setDisplayName(results.rows[0].display_name);
+    user.setEmail(results.rows[0].email);
+    user.setRoleId(results.rows[0].role_id);
     return user;
 };
 
