@@ -23,20 +23,16 @@ const insertUser = (params) => {
     return user;
 };
 
-const getUsers = () => {
+async function getUsers() {
     var users = new Array();
-    pool.query(constants.GET_USERS, [userId], (error, results) => {
-        if (error) {
-            console.log(error);
-            throw error;
-        }
-        for (i = 0; i < results.rows.length; i++) {
-            let user = new User();
-            user.setId(results.rows[i].id);
-            user.setDisplayName(results.rows[i].display_name);
-            
-        }
-    });
+    const results = await pool.query(constants.GET_USERS);
+    console.log(results.rows);
+    for (i = 0; i < results.rows.length; i++) {
+        let user = new User();
+        user.setId(results.rows[i].id);
+        user.setDisplayName(results.rows[i].display_name);
+        users.push(user);
+    }
     return users;
 };
 

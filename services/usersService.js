@@ -48,9 +48,9 @@ const deleteUserById = (req, res) => {
     }
 };
 
-const getUsers = (req, res) => {
+const getUsers = async (req, res) => {
     try {
-        var users = usersRepository.getUsers();
+        var users = await usersRepository.getUsers();
         res.status(200).json(users);
     } catch (error) {
         res.status(404).json({msg: error.message, error: error});
