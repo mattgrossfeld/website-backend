@@ -11,7 +11,7 @@ const pool = new Pool({
   user: properties.get('db.user'),
   password: properties.get('db.password'),
   ssl: {
-    ca: fs.readFileSync('C:/Users/Matthew Grossfeld/Downloads/global-bundle.pem').toString()
+    ca: fs.readFileSync('ca-cert.pem').toString()
   }
 });
 
