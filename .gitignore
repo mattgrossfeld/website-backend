@@ -2,3 +2,4 @@ local-properties.properties
 /node_modules
 package-lock.json
 databasePool.js
+*.pem
