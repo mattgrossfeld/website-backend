@@ -54,7 +54,6 @@ async function updateUserById(userId, params) {
 };
 
 async function deleteUserById(userId) {
-    var user = new User();
     console.log("userId: " + userId);
     await pool.query(constants.DELETE_USER_BY_ID, [userId]);
 };
