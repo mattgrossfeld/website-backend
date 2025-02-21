@@ -16,7 +16,8 @@
     "pg": "^8.13.3",
     "properties-reader": "^2.3.0",
     "pug": "^3.0.3",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "website-backend": "file:"
   },
   "scripts": {
     "start": "node server.js"

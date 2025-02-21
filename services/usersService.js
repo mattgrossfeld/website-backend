@@ -25,22 +25,22 @@ const insertUser = async (req, res) => {
         }
 };
   
-const updateUserById = (req, res) => {
+const updateUserById = async (req, res) => {
     let params = req.body;
-    let userId = req.params.userId;
+    let userId = parseInt(req.params.userId);
     try {
-        var user = usersRepository.updateUserById(userId, params);
+        var user = await usersRepository.updateUserById(userId, params);
         res.status(200).json(user);
     } catch (error) {
         res.status(400).json({msg: error.message, error: error});
     }
 };
   
-const deleteUserById = (req, res) => {
+const deleteUserById = async (req, res) => {
     let userId = req.params.userId;
     console.log("Delete User By Id: " + userId);
     try {
-        usersRepository.deleteUserById(userId);
+        await usersRepository.deleteUserById(userId);
         let message = "User Id " + userId + " deleted successfully. ";
         res.status(201).json({msg: message});
     } catch (error) {
