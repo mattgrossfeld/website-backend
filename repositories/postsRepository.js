@@ -41,6 +41,7 @@ async function getPostsByCommunityId(communityId) {
         post.setBody(results.rows[i].body);
         post.setCommunityId(results.rows[i].community_id);
         post.setParentPostId(results.rows[i].parent_post_id);
+        posts.push(post);
     }
     return posts;
 };
