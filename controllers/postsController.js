@@ -11,12 +11,6 @@ router.delete('/:postId', postsService.deletePostById);
 // Multiple threads
 router.get('/', postsService.getPosts);
 router.post('/', postsService.insertPost);
-router.put('/', postsService.updatePosts);
-router.delete('/', postsService.deletePosts);
-
-// Post posts
-router.get('/:postId/posts', postsService.getAllRelatedPosts);
-router.get('/:postId/latestPost', postsService.getPostLatestPost);
-
+router.get('/communities/:communityId', postsService.getPostsByCommunityId);
 
 module.exports = router;

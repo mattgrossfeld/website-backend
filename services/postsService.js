@@ -1,54 +1,75 @@
 const postsRepository = require('../repositories/postsRepository');
 
-const getPostById = (req, res) => {
+const getPostById = async (req, res) => {
         let postId = req.params.postId;
         console.log("Get Post By Id: " + postId);
 
         try {
-            var post = postsRepository.getPostById(postId);
+            var post = await postsRepository.getPostById(postId);
+            console.log("Post at service: ");
+            console.log(post);
             res.status(200).json(post);
         } catch (error) {
-            res.status(error.status).json({msg: error.message, error: error});
+            res.status(404).json({msg: error.message, error: error});
         }
 
 };
+
+const getPostsByCommunityId = async (req, res) => {
+    let communityId = req.params.communityId;
+    console.log("Get communityId By Id: " + communityId);
+
+    try {
+        var post = await postsRepository.getPostsByCommunityId(communityId);
+        console.log("communityId at service: ");
+        console.log(post);
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(404).json({msg: error.message, error: error});
+    }
+
+};
   
-const insertPost = (req, res) => {
+const insertPost = async (req, res) => {
     let params = req.body;
     try {
-            var post = postsRepository.insertPost(params);
+            var post = await postsRepository.insertPost(params);
             res.status(200).json(post);
         } catch (error) {
-            res.status(error.status).json({msg: error.message, error: error});
+            res.status(400).json({msg: error.message, error: error});
         }
 };
   
-const updatePostById = (req, res) => {
-        res.json({message: 'Update Post By Id'});
-    };
+const updatePostById = async (req, res) => {
+    let params = req.body;
+    let postId = parseInt(req.params.postId);
+    try {
+        var post = await postsRepository.updatePostById(postId, params);
+        res.status(200).json(post);
+    } catch (error) {
+        res.status(400).json({msg: error.message, error: error});
+    }
+};
   
-const deletePostById = (req, res) => {
-        res.json({message: 'Delete Post By Id'});
-    };
+const deletePostById = async (req, res) => {
+    let postId = req.params.postId;
+    console.log("Delete Post By Id: " + postId);
+    try {
+        await postsRepository.deletePostById(postId);
+        let message = "Post Id " + postId + " deleted successfully. ";
+        res.status(201).json({msg: message});
+    } catch (error) {
+        res.status(404).json({msg: error.message, error: error});
+    }
+};
 
-const getPosts = (req, res) => {
-        res.json({message: 'Get Posts'});
-    };
+const getPosts = async (req, res) => {
+    try {
+        var posts = await postsRepository.getPosts();
+        res.status(200).json(posts);
+    } catch (error) {
+        res.status(404).json({msg: error.message, error: error});
+    }
+};
 
-const updatePosts = (req, res) => {
-        res.json({message: 'Update posts'});
-    };
-
-const deletePosts = (req, res) => {
-        res.json({message: 'Delete posts'});
-    };
-
-const getAllRelatedPosts = (req, res) => {
-        res.json({message: 'Get posts for post'});
-    };
-
-const getPostLatestPost = (req, res) => {
-        res.json({message: 'Get the latest post for post'});
-    };
-
-module.exports = {getPostById, insertPost, updatePostById, deletePostById, getPosts, updatePosts, deletePosts, getAllRelatedPosts, getPostLatestPost};
+module.exports = {getPostById, insertPost, updatePostById, deletePostById, getPosts, getPostsByCommunityId };

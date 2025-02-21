@@ -1,12 +1,6 @@
-class Shout {
+const Base = require("./Base");
+class Shout extends Base{
     constructor() {
-    };
-
-    setId(id) {
-        this._id = id;
-    };
-    getId() {
-        return this._id;
     };
     
     setShout(shout) {
@@ -16,33 +10,12 @@ class Shout {
         return this._shout;
     };
 
-    setModifiedTm(modifiedTm) {
-        this._modifiedTm = modifiedTm;
-    };
-    getModifiedTm() {
-        return this._modifiedTm;
-    };
-
-    setModifiedBy(modifiedBy) {
-        this._modifiedBy = modifiedBy;
-    };
-    getModifiedBy() {
-        return this._modifiedBy;
-    };
-
-    setCreatedTm(createdTm) {
-        this._createdTm = createdTm;
-    };
-    getCreatedTm() {
-        return this._createdTm;
-    };
-
-    setCreatedBy(createdBy) {
-        this._createdBy = createdBy;
-    };
-    getCreatedBy() {
-        return this._createdBy;
-    };
+   setCommunityId(communityId) {
+    this._communityId = communityId;
+   };
+   getCommunityId() {
+    return this._communityId;
+   };
 
 };
 

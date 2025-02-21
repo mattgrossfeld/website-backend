@@ -1,12 +1,8 @@
-class Post {
-    constructor() {
-    };
+const Base = require("./Base");
 
-    setId(id) {
-        this._id = id;
-    };
-    getId() {
-        return this._id;
+class Post extends Base {
+    constructor() {
+        super();
     };
     
     setTitle(title) {
@@ -23,33 +19,16 @@ class Post {
         return this._body;
     };
 
-    setModifiedTm(modifiedTm) {
-        this._modifiedTm = modifiedTm;
+    setCommunityId(communityId) {
+        this._communityId = communityId;
     };
-    getModifiedTm() {
-        return this._modifiedTm;
-    };
-
-    setModifiedBy(modifiedBy) {
-        this._modifiedBy = modifiedBy;
-    };
-    getModifiedBy() {
-        return this._modifiedBy;
+    getCommunityId() {
+        return this._communityId;
     };
 
-    setCreatedTm(createdTm) {
-        this._createdTm = createdTm;
-    };
-    getCreatedTm() {
-        return this._createdTm;
-    };
-
-    setCreatedBy(createdBy) {
-        this._createdBy = createdBy;
-    };
-    getCreatedBy() {
-        return this._createdBy;
-    };
+    setParentPostId(parentPostId) {
+        this._parentPostId = parentPostId;
+    }
 
 };
 
