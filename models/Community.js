@@ -2,6 +2,7 @@ const Base = require("./Base");
 
 class Community extends Base {
     constructor() {
+        super();
     };
 
     setCommunityName(roleName) {

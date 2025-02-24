@@ -30,22 +30,6 @@ async function getPostById(postId) {
     return post;
 };
 
-async function getPostsByCommunityId(communityId) {
-    var posts = new Array();
-    const results = await pool.query(constants.GET_POSTS_BY_COMMUNITY_ID, [communityId]);
-    console.log(results.rows);
-    for (i = 0; i < results.rows.length; i++) {
-        let post = new Post();
-        post.setId(results.rows[i].id);
-        post.setTitle(results.rows[i].title);
-        post.setBody(results.rows[i].body);
-        post.setCommunityId(results.rows[i].community_id);
-        post.setParentPostId(results.rows[i].parent_post_id);
-        posts.push(post);
-    }
-    return posts;
-};
-
 async function insertPost(params) {
     var post = new Post();
     console.log(params);
@@ -76,4 +60,4 @@ async function deletePostById(postId) {
     await pool.query(constants.DELETE_POST_BY_ID, [postId]);
 };
 
-module.exports = { getPostById, insertPost, getPosts, updatePostById, deletePostById, getPostsByCommunityId };
+module.exports = { getPostById, insertPost, getPosts, updatePostById, deletePostById };

@@ -1,6 +1,7 @@
 const Base = require("./Base");
 class Shout extends Base{
     constructor() {
+        super();
     };
     
     setShout(shout) {

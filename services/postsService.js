@@ -14,21 +14,6 @@ const getPostById = async (req, res) => {
         }
 
 };
-
-const getPostsByCommunityId = async (req, res) => {
-    let communityId = req.params.communityId;
-    console.log("Get communityId By Id: " + communityId);
-
-    try {
-        var post = await postsRepository.getPostsByCommunityId(communityId);
-        console.log("communityId at service: ");
-        console.log(post);
-        res.status(200).json(post);
-    } catch (error) {
-        res.status(404).json({msg: error.message, error: error});
-    }
-
-};
   
 const insertPost = async (req, res) => {
     let params = req.body;
@@ -72,4 +57,4 @@ const getPosts = async (req, res) => {
     }
 };
 
-module.exports = {getPostById, insertPost, updatePostById, deletePostById, getPosts, getPostsByCommunityId };
+module.exports = {getPostById, insertPost, updatePostById, deletePostById, getPosts };

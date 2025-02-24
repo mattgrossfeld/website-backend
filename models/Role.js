@@ -2,6 +2,7 @@ const Base = require("./Base");
 
 class Role extends Base{
     constructor() {
+        super();
     };
 
     setRoleName(roleName) {

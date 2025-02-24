@@ -7,10 +7,7 @@ const router = express.Router();
 router.get('/:postId', postsService.getPostById);
 router.put('/:postId', postsService.updatePostById);
 router.delete('/:postId', postsService.deletePostById);
-
-// Multiple threads
 router.get('/', postsService.getPosts);
 router.post('/', postsService.insertPost);
-router.get('/communities/:communityId', postsService.getPostsByCommunityId);
 
 module.exports = router;
