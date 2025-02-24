@@ -80,7 +80,7 @@ async function getCommunityRoleByCommunityIdAndRoleId(communityId, communityRole
     communityRole.setRoleDescription(results.rows[0].role_desc);
     communityRole.setIsAdmin(results.rows[0].is_admin);
     communityRole.setPrivilegeLevel(results.rows[0].privilege_level);
-    communityRoles.push(communityRole);
+    return communityRole;
 };
 
 async function insertCommunityRoleForCommunityId(communityId, params) {
@@ -97,8 +97,6 @@ async function insertCommunityRoleForCommunityId(communityId, params) {
 
 async function updateCommunityRoleForCommunityId(communityId, communityRoleId, params) {
     var updatedRole = new Role();
-    console.log(roleId);
-    console.log(params);
     const results = await pool.query(constants.UPDATE_COMMUNITY_ROLE_FOR_COMMUNITY_ID, [params.roleName, params.roleDesc, params.isAdmin, params.privilegeLevel, params.modifiedBy, communityRoleId, communityId]);
     updatedRole.setId(results.rows[0].id);
     updatedRole.setRoleName(results.rows[0].role_name);
@@ -118,18 +116,18 @@ async function getCommunityUsersByCommunityId(communityId) {
     for (let i = 0; i < results.rows.length; i++) {
         let communityUser = new User();
         communityUser.setId(results.rows[i].id);
-        communityUser.setDisplayName(results.rows[i].display_name);
+        communityUser.setUserName(results.rows[i].user_name);
         communityUsers.push(communityUser);
     }
-    return communityRoles;
+    return communityUsers;
 };
 
 async function getCommunityUserByCommunityIdAndUserId(communityId, userId) {
     var communityUser = new User();
     const results = await pool.query(constants.GET_COMMUNITY_USER_BY_COMMUNITY_ID_AND_USER_ID, [communityId, userId]);
-    communityUser.setId(results.rows[0].id);
-    communityUser.setDisplayName(results.rows[0].display_name);
-    return communityRoles;
+    communityUser.setId(results.rows[0].user_id);
+    communityUser.setUserName(results.rows[0].user_name);
+    return communityUser;
 };
 
 async function insertCommunityUserForCommunityId(communityId, params) {
@@ -143,9 +141,10 @@ async function insertCommunityUserForCommunityId(communityId, params) {
 
 async function updateCommunityUserForCommunityId(communityId, userId, params) {
     var updatedUser = new User();
-    const results = await pool.query(constants.UPDATE_COMMUNITY_USER_FOR_COMMUNITY_ID[params.role_level, params.modified_by, communityId, userId]);
+    const results = await pool.query(constants.UPDATE_COMMUNITY_USER_FOR_COMMUNITY_ID, [params.roleId, params.modifiedBy, communityId, userId]);
     updatedUser.setId(results.rows[0].user_id);
     updatedUser.setRoleId(results.rows[0].role_level);
+    return updatedUser;
 };
 
 async function deleteCommunityUserForCommunityId(communityId, userId) {

@@ -60,7 +60,7 @@ const deleteCommunityById = async (req, res) => {
 const getCommunityRolesByCommunityId = async (req, res) => {
     let communityId = req.params.communityId;
     try {
-        var communityRoles = await communitiesRepository.getCommuniyRolesByCommunityId(communityId);
+        var communityRoles = await communitiesRepository.getCommunityRolesByCommunityId(communityId);
         res.status(200).json(communityRoles);
     } catch (error) {
         res.status(404).json({msg: error.message, error: error});
