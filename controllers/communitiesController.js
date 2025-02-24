@@ -18,9 +18,9 @@ router.delete('/:communityId/roles/:communityRoleId', communitiesService.deleteC
 
 router.get('/:communityId/users', communitiesService.getCommunityUsersByCommunityId); 
 router.get('/:communityId/users/:userId', communitiesService.getCommunityUserByCommunityIdAndUserId); 
-router.post('/:communityId/users', communitiesService.insertCommunityRoleForCommunityId);
-router.put('/:communityId/users/:userId', communitiesService.updateCommunityRoleForCommunityId);
-router.delete('/:communityId/users/:userId', communitiesService.deleteCommunityRoleForCommunityId);
+router.post('/:communityId/users', communitiesService.insertCommunityUserForCommunityId);
+router.put('/:communityId/users/:userId', communitiesService.updateCommunityUserForCommunityId);
+router.delete('/:communityId/users/:userId', communitiesService.deleteCommunityUserForCommunityId);
 
 router.get('/:communityId/posts', communitiesService.getPostsByCommunityId);
 router.get('/:communityId/shouts', communitiesService.getShoutsByCommunityId);

@@ -1,8 +1,8 @@
 const pool = require('../databasePool');
 const constants = require('../queries/communitiesQueries');
 const Community = require('../models/Community');
-const User = require('../models/Community');
-const Role = require('../models/Community');
+const User = require('../models/User');
+const Role = require('../models/Role');
 const Post = require('../models/Post');
 const Shout = require('../models/Shout');
 
@@ -13,7 +13,8 @@ async function getCommunities() {
     for (let i = 0; i < results.rows.length; i++) {
         let community = new Community();
         community.setId(results.rows[i].id);
-        community.setDisplayName(results.rows[i].display_name);
+        community.setCommunityName(results.rows[i].community_name);
+        community.setCommunityDescription(results.rows[i].community_desc);
         communities.push(community);
     }
     return communities;
@@ -137,6 +138,7 @@ async function insertCommunityUserForCommunityId(communityId, params) {
     const results = await pool.query(constants.INSERT_COMMUNITY_USER_FOR_COMMUNITY_ID, [communityId, params.userId, params.roleId, params.createdBy, params.modifiedBy]);
     user.setId(results.rows[0].user_id);
     user.setRoleId(results.rows[0].role_level);
+    return user;
 };
 
 async function updateCommunityUserForCommunityId(communityId, userId, params) {
