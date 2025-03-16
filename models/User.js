@@ -47,6 +47,20 @@ class User extends Base {
         return this._roleId;
     };
 
+    setDateOfBirth(dateOfBirth) {
+        this._dateOfBirth = dateOfBirth;
+    };
+    getDateOfBirth() {
+        return this._dateOfBirth;
+    };
+    
+    getPassword() {
+        return this._password;
+    };
+    setPassword(password) {
+        this._password = password;
+    };
+
 };
 
 module.exports = User;

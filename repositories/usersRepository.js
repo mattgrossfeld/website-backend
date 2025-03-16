@@ -27,7 +27,7 @@ async function getUserById(userId) {
 async function insertUser(params) {
     var user = new User();
     console.log(params);
-    const results = await pool.query(constants.INSERT_USER, [params.firstName, params.lastName, params.userName, params.displayName, params.email, params.roleId, params.createdBy, params.modifiedBy]);
+    const results = await pool.query(constants.INSERT_USER, [params.firstName, params.lastName, params.userName, params.displayName, params.email, params.roleId, params.dateOfBirth, params.password, params.createdBy, params.modifiedBy]);
     user.setId(results.rows[0].id);
     user.setFirstName(results.rows[0].first_name);
     user.setLastName(results.rows[0].last_name);
@@ -35,6 +35,8 @@ async function insertUser(params) {
     user.setDisplayName(results.rows[0].display_name);
     user.setEmail(results.rows[0].email);
     user.setRoleId(results.rows[0].role_id);
+    user.setDateOfBirth(results.rows[0].date_of_birth);
+    user.setPassword(results.rows[0].password);
     return user;
 };
 

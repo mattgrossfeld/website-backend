@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // Add this line
 const app = express();
 const port = 3000;
-
 
 const postsController = require('./controllers/postsController');
 const usersController = require('./controllers/usersController');
@@ -18,6 +18,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(cors()); // Add this line
 
 app.get('/', (request, response) => {
   response.json({ info: 'Node.js, Express, and Postgres API' })
