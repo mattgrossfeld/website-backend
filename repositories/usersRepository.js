@@ -60,4 +60,15 @@ async function deleteUserById(userId) {
     await pool.query(constants.DELETE_USER_BY_ID, [userId]);
 };
 
-module.exports = { getUserById, insertUser, getUsers, updateUserById, deleteUserById };
+async function login(params) {
+    console.log(params);
+    var user = new User();
+    const results = await pool.query(constants.GET_USER_PASSWORD_BY_USER_NAME, [params.username, params.password]);
+    console.log(results.rows);
+    user.setId(results.rows[0].id);
+    user.setUserName(results.rows[0].user_name);
+    user.setPassword(results.rows[0].user_pwd);
+    return user;
+};
+
+module.exports = { getUserById, insertUser, getUsers, updateUserById, deleteUserById, login };
