@@ -11,6 +11,7 @@ const pool = new Pool({
   user: properties.get('db.user'),
   password: properties.get('db.password'),
   ssl: {
+    rejectUnauthorized: true, // Ensure SSL is enforced
     ca: fs.readFileSync('ca-cert.pem').toString()
   }
 });

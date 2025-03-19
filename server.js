@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors'); // Add this line
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
@@ -19,10 +19,15 @@ app.use(
   })
 );
 
-app.use(cors()); // Add this line
+// Configure CORS to allow requests from specific origins
+const corsOptions = {
+  origin: 'https://localhost:3001', // Replace with your frontend URL
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 app.get('/', (request, response) => {
-  response.json({ info: 'Node.js, Express, and Postgres API' })
+  response.json({ info: 'Node.js, Express, and Postgres API' });
 });
 
 app.use('/posts', postsController);
@@ -32,5 +37,5 @@ app.use('/communities', communitiesController);
 app.use('/shouts', shoutsController);
 
 app.listen(port, () => {
-  console.log(`App running on port ${port}.`)
+  console.log(`App running on port ${port}.`);
 });

@@ -21,6 +21,6 @@
     "website-backend": "file:"
   },
   "scripts": {
-    "start": "set HTTPS=true&&set SSL_CRT_FILE=C:/Windows/System32/cert.crt&&set SSL_KEY_FILE=C:/Windows/System32/cert.key&&node server.js"
+    "start": "set HTTPS=true&&set SSL_CRT_FILE=C:/Windows/System32/certs/cert.crt&&set SSL_KEY_FILE=C:/Windows/System32/certs/cert.key&&node server.js"
   }
 }
