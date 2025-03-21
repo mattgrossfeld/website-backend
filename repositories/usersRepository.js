@@ -60,11 +60,12 @@ async function deleteUserById(userId) {
     await pool.query(constants.DELETE_USER_BY_ID, [userId]);
 };
 
-async function login(params) {
-    console.log(params);
+async function login(userName) {
     var user = new User();
-    const results = await pool.query(constants.GET_USER_PASSWORD_BY_USER_NAME, [params.username, params.password]);
-    console.log(results.rows);
+    const results = await pool.query(constants.GET_USER_PASSWORD_BY_USER_NAME, [userName]);
+    if (results.rows.length === 0) {
+        throw new Error("User not found");
+    }
     user.setId(results.rows[0].id);
     user.setUserName(results.rows[0].user_name);
     user.setPassword(results.rows[0].user_pwd);

@@ -17,6 +17,9 @@ const getUserById = async (req, res) => {
 
 const insertUser = async (req, res) => {
     let params = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(params.password, salt);
+    params.password = hash;
     try {
         var user = await usersRepository.insertUser(params);
         res.status(200).json(user);
@@ -60,8 +63,12 @@ const getUsers = async (req, res) => {
 const login = async (req, res) => {
     let params = req.body;
     try {
-        var user = await usersRepository.login(params);
-        bcrypt.compare(params.password, user.password, function(err, result) {
+        var user = await usersRepository.login(params.userName);
+        bcrypt.compare(params.password, user._password, function(err, result) {
+            if (err) {
+                console.error("Error during password comparison:", err);
+                return res.status(500).json({msg: "Internal server error", error: err});
+            }
             if (result) {
                 console.log("Login authenticated.");
                 res.status(200).json(user);
@@ -70,6 +77,7 @@ const login = async (req, res) => {
             }
         });
     } catch (error) {
+        console.error("Error during login:", error);
         res.status(404).json({msg: error.message, error: error});
     }
 };
