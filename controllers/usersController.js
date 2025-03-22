@@ -1,15 +1,16 @@
 const express = require('express');
-const usersService = require('../services/usersService');
-
 const router = express.Router();
+const usersService = require('../services/usersService');
+const { verifyToken } = require('../middleware/authMiddleware'); // Ensure correct import
 
-// Single thread
-
-router.get('/', usersService.getUsers);
-router.get('/:userId', usersService.getUserById);
-router.put('/:userId', usersService.updateUserById);
-router.delete('/:userId', usersService.deleteUserById);
-router.post('/register', usersService.insertUser);
+// Public routes
 router.post('/login', usersService.login);
+router.post('/register', usersService.insertUser);
+
+// Protected routes
+router.get('/:userId', verifyToken, usersService.getUserById);
+router.put('/:userId', verifyToken, usersService.updateUserById);
+router.delete('/:userId', verifyToken, usersService.deleteUserById);
+router.get('/', verifyToken, usersService.getUsers);
 
 module.exports = router;

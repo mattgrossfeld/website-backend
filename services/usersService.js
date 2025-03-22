@@ -1,5 +1,7 @@
 const usersRepository = require('../repositories/usersRepository');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = require('../databasePool'); // Add this line
 
 const getUserById = async (req, res) => {
     let userId = req.params.userId;
@@ -71,7 +73,9 @@ const login = async (req, res) => {
             }
             if (result) {
                 console.log("Login authenticated.");
-                res.status(200).json(user);
+                const token = jwt.sign({ userName: user.userName, date: Date.now() }, JWT_SECRET, { expiresIn: '1h' }); // Add this line
+                res.cookie('token', token, { httpOnly: true, secure: true }); // Add this line
+                res.status(200).json({ user, token }); // Modify this line
             } else {
                 res.status(401).json({msg: "Invalid username or password."});
             }

@@ -1,4 +1,4 @@
-const pool = require('../databasePool');
+const { pool } = require('../databasePool');
 const constants = require('../queries/usersQueries');
 const User = require('../models/User');
 

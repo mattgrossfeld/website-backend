@@ -16,4 +16,6 @@ const pool = new Pool({
   }
 });
 
-module.exports = pool;
+const JWT_SECRET = properties.get('jwt.secret'); // Add this line
+
+module.exports = { pool, JWT_SECRET }; // Modify this line
