@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
 const https = require('https');
+const cookieParser = require('cookie-parser'); // Add this line
 const app = express();
 const port = 3000;
 
@@ -20,6 +21,7 @@ app.use(
     extended: true,
   })
 );
+app.use(cookieParser()); // Add this line
 
 // Configure CORS to allow requests from specific origins
 const corsOptions = {
