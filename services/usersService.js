@@ -74,7 +74,7 @@ const login = async (req, res) => {
             if (result) {
                 console.log("Login authenticated.");
                 const token = jwt.sign({ userName: user.userName }, JWT_SECRET, { expiresIn: '1d' });
-                res.cookie('jwt', token, { httpOnly: true, secure: true }); // Ensure consistent cookie name
+                res.cookie('jwt', token, { sameSite: 'strict', httpOnly: true, secure: true }); // Ensure consistent cookie name
                 res.status(200).json({ user, token });
             } else {
                 res.status(401).json({msg: "Invalid username or password."});
