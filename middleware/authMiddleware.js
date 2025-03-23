@@ -13,9 +13,13 @@ const parseCookies = (cookieHeader) => {
 const verifyToken = (req, res, next) => {
   const cookies = parseCookies(req.headers.cookie); // Parse cookies
   const token = cookies.jwt; // Check for token in cookies and headers
-  
+  const csrfToken = cookies.csrf;
   if (!token) {
-    return res.status(401).json({ msg: 'User not authorized. No token provided.' });
+    return res.status(401).json({ msg: 'User not authorized.' });
+  }
+
+  if (!csrfToken) {
+    return res.status(401).json({ msg: 'User not authorized.' });
   }
 
   jwt.verify(token, JWT_SECRET, (err, decoded) => {

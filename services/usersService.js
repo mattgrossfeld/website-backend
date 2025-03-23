@@ -1,7 +1,10 @@
 const usersRepository = require('../repositories/usersRepository');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../databasePool'); // Add this line
+const { JWT_SECRET } = require('../databasePool');
+const Tokens = require('csrf'); // Correct import
+
+const tokens = new Tokens(); // Create an instance of Tokens
 
 const getUserById = async (req, res) => {
     let userId = req.params.userId;
@@ -73,8 +76,18 @@ const login = async (req, res) => {
             }
             if (result) {
                 console.log("Login authenticated.");
+                // JWT
                 const token = jwt.sign({ userName: user.userName }, JWT_SECRET, { expiresIn: '1d' });
                 res.cookie('jwt', token, { sameSite: 'strict', httpOnly: true, secure: true }); // Ensure consistent cookie name
+
+                // CSRF
+                const secret = tokens.secretSync();
+                const csrfToken = tokens.create(secret);
+                res.cookie('csrf', csrfToken, {
+                    httpOnly: false, // Allow access via client-side JavaScript
+                    secure: true, // Set to true if using HTTPS
+                    sameSite: 'Strict' // Prevent CSRF attacks by only allowing same-site requests
+                });
                 res.status(200).json({ user, token });
             } else {
                 res.status(401).json({msg: "Invalid username or password."});
@@ -86,4 +99,15 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = {getUserById, insertUser, updateUserById, deleteUserById, getUsers, login};
+const logout = async (req, res) => {
+    try {
+        res.clearCookie('jwt', { sameSite: 'strict', httpOnly: true, secure: true });
+        res.clearCookie('csrf');
+        res.status(200).json({msg: "Logout successful."});
+    }
+    catch (error) {
+        res.status(404).json({msg: error.message, error: error});
+    }
+};
+
+module.exports = {getUserById, insertUser, updateUserById, deleteUserById, getUsers, login, logout};

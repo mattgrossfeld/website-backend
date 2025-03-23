@@ -12,5 +12,6 @@ router.get('/:userId', verifyToken, usersService.getUserById);
 router.put('/:userId', verifyToken, usersService.updateUserById);
 router.delete('/:userId', verifyToken, usersService.deleteUserById);
 router.get('/', verifyToken, usersService.getUsers);
+router.post('/logout', verifyToken, usersService.logout);
 
 module.exports = router;
