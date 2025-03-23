@@ -77,7 +77,7 @@ const login = async (req, res) => {
             if (result) {
                 console.log("Login authenticated.");
                 // JWT
-                const token = jwt.sign({ userName: user.userName }, JWT_SECRET, { expiresIn: '1d' });
+                const token = jwt.sign({ userName: user.userName, roleId: user.roleId, userId: user.id }, JWT_SECRET, { expiresIn: '1d' });
                 res.cookie('jwt', token, { sameSite: 'strict', httpOnly: true, secure: true }); // Ensure consistent cookie name
 
                 // CSRF

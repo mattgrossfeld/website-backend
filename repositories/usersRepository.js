@@ -68,7 +68,7 @@ async function login(userName) {
     }
     user.setId(results.rows[0].id);
     user.setUserName(results.rows[0].user_name);
-    user.setPassword(results.rows[0].user_pwd);
+    user.setRoleId(results.rows[0].role_id);
     return user;
 };
 
